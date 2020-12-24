@@ -1,19 +1,18 @@
-const PORT = process.env.PORT || 3000;
-const INDEX = '/index.html';
+const express = require('express')
+const app = express()
+const server = require('http').createServer(app);
+const WebSocket = require('ws');
 
-const server = require('express')()
-    .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
-    .listen(PORT, () => console.log(`Listening on ${PORT}`));
+const wss = new WebSocket.Server({ server:server });
 
-
-const { Server } = require('ws');
-const wss = new Server({ server });
-
-wss.on('connection', (ws) => {
-    console.log('Client connected');
-    ws.on('message', (msg)=>{
-        console.log(msg);
-        ws.send(msg);
-    })
-    ws.on('close', () => console.log('Client disconnected'));
+wss.on('connection', function connection(ws) {
+  console.log('A new client Connected!');
+  ws.on('message', function incoming(message) {
+    console.log('received: %s', message);
+    ws.send(message);
+  });
 });
+
+app.get('/', (req, res) => res.send('Hello World!'))
+
+server.listen(3000, () => console.log(`Lisening on port :3000`))
