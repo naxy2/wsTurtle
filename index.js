@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const server = require('http').createServer(app);
 const WebSocket = require('ws');
+const PORT = process.env.PORT || 3000;
 
 const wss = new WebSocket.Server({ server:server });
 
@@ -15,4 +16,4 @@ wss.on('connection', function connection(ws) {
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
-server.listen(3000, () => console.log(`Lisening on port :3000`))
+server.listen(PORT, () => console.log(`Lisening on port : ${PORT}`))
