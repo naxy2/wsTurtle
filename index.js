@@ -9,3 +9,5 @@ wss.on('connection', function connection(ws) {
 
   ws.send('something');
 });
+
+console.log(process.env.port)
