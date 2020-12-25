@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const app = express()
 const server = require('http').createServer(app);
@@ -14,6 +15,11 @@ wss.on('connection', function connection(ws) {
   });
 });
 
-app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
+})
+app.get('/script.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'script.js'))
+})
 
 server.listen(PORT, () => console.log(`Lisening on port : ${PORT}`))
