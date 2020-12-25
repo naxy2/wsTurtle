@@ -6,12 +6,32 @@ const WebSocket = require('ws');
 const PORT = process.env.PORT || 3000;
 
 const wss = new WebSocket.Server({ server:server });
+controlli = []
+turtles = []
 
 wss.on('connection', function connection(ws) {
   console.log('A new client Connected!');
   ws.on('message', function incoming(message) {
-    console.log('received: %s', message);
-    ws.send(message);
+    console.log(`received: ${message}`);
+    //ws.send(message);
+    switch (message){
+      case 'controllo':
+        controlli.push(ws)
+        break;
+      case 'turtle':
+        turtles.push(ws)
+        break;
+      default:
+        if (controlli.includes(ws)){
+          for (turtle of turtles){
+            turtle.send(message)
+          }
+        }else{
+          for (constrollo of controlli){
+            controllo.send(message)
+          }
+        }
+    }
   });
 });
 

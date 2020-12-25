@@ -9,5 +9,5 @@ ws.onmessage = function(event){
 
 
 function avanti(){
-
+    ws.send("avanti")
 }
