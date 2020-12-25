@@ -1,4 +1,4 @@
-ws = new WebSocket("ws://wsturtle.herokuapp.com")
+ws = new WebSocket("wss://wsturtle.herokuapp.com")
 
 ws.onopen = function(event){
     ws.send("controllo")
